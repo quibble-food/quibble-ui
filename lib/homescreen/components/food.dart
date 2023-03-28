@@ -80,9 +80,9 @@ class _FoodState extends State<Food> {
         itemBuilder: (BuildContext context, int index) {
           final foodItem = _foodItems[index];
           return Container(
-            width: screenSize.width * 0.85,
+            width: screenSize.width * 0.82,
             height: screenSize.height * 0.22,
-            margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            margin: const EdgeInsets.symmetric(vertical: 14, horizontal: 25),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               image: DecorationImage(
