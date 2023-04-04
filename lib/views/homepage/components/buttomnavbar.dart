@@ -24,12 +24,12 @@ class _NavBarState extends State<NavBar> {
             icon: InkWell(
               onTap: () => {},
               child: Image.asset(
-                'assets/images/nav-gift.png',
+                'assets/images/socialmedia.png',
                 width: 24,
                 height: 24,
               ),
             ),
-            label: "Gifts"),
+            label: "Feeds"),
         BottomNavigationBarItem(
             icon: InkWell(
               onTap: () => {},
@@ -44,12 +44,12 @@ class _NavBarState extends State<NavBar> {
             icon: InkWell(
               onTap: () => {},
               child: Image.asset(
-                'assets/images/nav-wallet.png',
+                'assets/images/account.png',
                 width: 24,
                 height: 24,
               ),
             ),
-            label: "Wallet")
+            label: "Account")
       ],
     );
   }

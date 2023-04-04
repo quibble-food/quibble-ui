@@ -15,13 +15,13 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Column(
-      children: [
-        const Padding(
+      children: const [
+        Padding(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
             child: QuestionLine()),
-        Container(
+        SizedBox(
           height: 100,
-          child: const Cuisine(),
+          child: Cuisine(),
         ),
         Food()
       ],
