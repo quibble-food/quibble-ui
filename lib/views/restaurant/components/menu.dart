@@ -21,10 +21,14 @@ class _MenuState extends State<Menu> {
     _menu = _menuAPI.getMenu(widget.restaurant);
   }
 
+  int _count = 0;
+
   @override
   Widget build(BuildContext context) {
     ScrollController controller = ScrollController();
     final screenSize = MediaQuery.of(context).size;
+    final menuImageHeight = screenSize.height * 0.35;
+    final menuImageWidth = screenSize.width * 0.35;
     return FutureBuilder<List<dynamic>>(
       future: _menu,
       builder: (context, snapshot) {
@@ -38,7 +42,7 @@ class _MenuState extends State<Menu> {
               final menuItem = snapshot.data![index];
               return ListTile(
                 contentPadding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                    const EdgeInsets.symmetric(vertical: 6.0, horizontal: 5.0),
                 title: RichText(
                   text: TextSpan(
                     children: [
@@ -69,10 +73,76 @@ class _MenuState extends State<Menu> {
                     ],
                   ),
                 ),
-                leading: Image.asset(
-                  menuItem.imageUrl,
-                  height: screenSize.height * 0.2,
-                  width: screenSize.width * 0.35,
+                leading: Stack(
+                  children: [
+                    Image.asset(
+                      menuItem.imageUrl,
+                      fit: BoxFit.fill,
+                      height: menuImageHeight,
+                      width: menuImageWidth,
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          // Set the color of the container
+                          borderRadius: BorderRadius.circular(2),
+                          border: Border.all(color: Colors.green, width: 1),
+                          color:
+                              Colors.white, // Set the radius of the container
+                        ),
+                        height: 30,
+                        width: menuImageWidth * 0.8,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _count > 0
+                                ? IconButton(
+                                    icon: Icon(Icons.remove),
+                                    onPressed: () {
+                                      setState(() {
+                                        if (_count > 0) {
+                                          _count--;
+                                        }
+                                      });
+                                    },
+                                  )
+                                : const SizedBox.shrink(),
+                            _count == 0
+                                ? TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _count++;
+                                      });
+                                    },
+                                    child: const Text(
+                                      "Add",
+                                      style: TextStyle(fontSize: 10),
+                                    ))
+                                : const SizedBox.shrink(),
+                            _count > 0
+                                ? Text(
+                                    '$_count',
+                                    style: const TextStyle(fontSize: 14),
+                                  )
+                                : const SizedBox.shrink(),
+                            _count > 0
+                                ? IconButton(
+                                    icon: Icon(Icons.add),
+                                    onPressed: () {
+                                      setState(() {
+                                        _count++;
+                                      });
+                                    },
+                                  )
+                                : SizedBox.shrink(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               );
             },

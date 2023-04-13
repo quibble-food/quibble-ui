@@ -62,7 +62,7 @@ class Cuisine extends StatefulWidget {
 
 class _CuisineState extends State<Cuisine> {
   List foodItems = [
-    {"name": "Noodles", "image_url": "pasta.png"},
+    {"name": "Noodles", "image_url": "rolls.png"},
     {"name": "Ice Cream", "image_url": "icecream.png"},
     {"name": "Burger", "image_url": "burger.png"},
     {"name": "Rolls", "image_url": "rolls.png"},

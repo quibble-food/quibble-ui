@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Quibble',
       routes: {
-        '/home': (BuildContext context) =>  const HomeScreen(),
+        '/home': (BuildContext context) => const HomeScreen(),
       },
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
