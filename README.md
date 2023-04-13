@@ -1,6 +1,6 @@
 # quibble
 
-A app made for hungry students
+An app made for hungry students
 
 ## Getting Started
 
