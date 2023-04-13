@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quibble/views/restaurant/components/body.dart';
-import '../../models/food.dart';
 
 class Menu extends StatelessWidget {
   final String restaurant;

@@ -11,7 +11,7 @@ class RestaurantDetails extends StatefulWidget {
 class _RestaurantDetailsState extends State<RestaurantDetails> {
   @override
   Widget build(BuildContext context) {
-    ScrollController _controller = new ScrollController();
+    // ScrollController controller = ScrollController();
     final screenSize = MediaQuery.of(context).size;
     return Container(
       width: screenSize.width * 0.82,

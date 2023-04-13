@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/food.dart';
 import '../../../services/getfooditems.dart';
 
 class Menu extends StatefulWidget {
   final String restaurant;
 
-  const Menu({required this.restaurant});
+  const Menu({super.key, required this.restaurant});
 
   @override
-  _MenuState createState() => _MenuState();
+  State<Menu> createState() => _MenuState();
 }
 
 class _MenuState extends State<Menu> {
@@ -24,14 +23,14 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
-    ScrollController _controller = new ScrollController();
+    ScrollController controller = ScrollController();
     final screenSize = MediaQuery.of(context).size;
     return FutureBuilder<List<dynamic>>(
       future: _menu,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(
-            controller: _controller,
+            controller: controller,
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemCount: snapshot.data!.length,

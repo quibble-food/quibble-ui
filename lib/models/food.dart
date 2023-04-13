@@ -1,4 +1,3 @@
-import 'package:quibble/views/homepage/components/cuisines.dart';
 
 class FoodItem {
   final String name;

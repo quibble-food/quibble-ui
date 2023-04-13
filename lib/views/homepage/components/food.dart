@@ -1,7 +1,5 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../models/food.dart';
 import '../../restaurant/restaurant.dart';
@@ -50,9 +48,9 @@ class _FoodState extends State<Food> {
   }
 
   Future<void> _fetchFoodItems() async {
-    List json_response = dummyFetch();
+    List jsonResponse = dummyFetch();
     List<FoodItem> foodItems = [];
-    for (var item in json_response) {
+    for (var item in jsonResponse) {
       foodItems.add(FoodItem(
           name: item['name'],
           restaurant: item['restaurant'],
@@ -67,10 +65,10 @@ class _FoodState extends State<Food> {
 
   @override
   Widget build(BuildContext context) {
-    ScrollController _controller = new ScrollController();
+    ScrollController controller = ScrollController();
     final screenSize = MediaQuery.of(context).size;
     return ListView.builder(
-        controller: _controller,
+        controller: controller,
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemCount: _foodItems.length,

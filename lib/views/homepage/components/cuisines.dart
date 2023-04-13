@@ -1,7 +1,5 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:quibble/views/homepage/components/food.dart';
 
 class Description extends StatefulWidget {
   final List foodItems;
