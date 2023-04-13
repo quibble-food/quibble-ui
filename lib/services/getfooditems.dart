@@ -50,22 +50,23 @@ class FoodItems {
   ];
 
   Future<List<FoodItem>> getTrending() async {
-    final response =
-        await http.get(Uri.parse("https://quibble.com/api/v1/Trending"));
-    if (response.statusCode == 200) {
-      final List<dynamic> data = json.decode(response.body);
-      return data
-          .map((json) => FoodItem(
-                name: json['name'],
-                restaurant: json['restaurant'],
-                description: json['description'],
-                price: json['price'].toDouble(),
-                imageUrl: json['imageUrl'],
-              ))
-          .toList();
-    } else {
-      throw Exception('Failed to fetch menu items');
-    }
+    return returnresponse;
+    // final response =
+    //     await http.get(Uri.parse("https://quibble.com/api/v1/Trending"));
+    // if (response.statusCode == 200) {
+    //   final List<dynamic> data = json.decode(response.body);
+    //   return data
+    //       .map((json) => FoodItem(
+    //             name: json['name'],
+    //             restaurant: json['restaurant'],
+    //             description: json['description'],
+    //             price: json['price'].toDouble(),
+    //             imageUrl: json['imageUrl'],
+    //           ))
+    //       .toList();
+    // } else {
+    //   throw Exception('Failed to fetch menu items');
+    // }
   }
 
   Future<List<FoodItem>> getMenu(String restaurant) async {

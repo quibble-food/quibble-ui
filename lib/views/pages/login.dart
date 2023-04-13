@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:quibble/views/pages/phonevalidation.dart';
 
 class LoginView extends StatefulWidget {
@@ -17,7 +18,7 @@ class _LoginViewState extends State<LoginView> {
       body: SingleChildScrollView(
         reverse: true, // this is new
         physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.only(bottom: 10.0),
+        padding: const EdgeInsets.only(bottom: 50.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -42,6 +43,9 @@ class _LoginViewState extends State<LoginView> {
                       });
                     },
                     keyboardType: TextInputType.phone,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(10),
+                    ],
                     decoration: const InputDecoration(
                       prefixText: "+91 ",
                       fillColor: Color.fromARGB(255, 242, 241, 241),
@@ -49,6 +53,7 @@ class _LoginViewState extends State<LoginView> {
                         borderRadius: BorderRadius.all(Radius.circular(50.0)),
                         borderSide: BorderSide.none,
                       ),
+
                       filled: true,
                       contentPadding: EdgeInsets.only(
                         left: 20.0,
@@ -71,7 +76,7 @@ class _LoginViewState extends State<LoginView> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const PhoneValidation(),
+                              builder: (context) => PhoneValidation(phoneNumber: phoneNumber,),
                             ),
                           );
                         },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quibble/views/restaurant/components/menu.dart';
+import 'package:quibble/views/restaurant/components/restaurantdetails.dart';
 
 class Body extends StatefulWidget {
   final String restaurant;
@@ -14,7 +15,12 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Column(
-      children: [Menu(restaurant: widget.restaurant)],
+      children: [
+        RestaurantDetails(
+          restaurant: widget.restaurant,
+        ),
+        Menu(restaurant: widget.restaurant)
+      ],
     ));
   }
 }
