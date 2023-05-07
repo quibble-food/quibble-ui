@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 import '../../../services/getfooditems.dart';
@@ -21,7 +23,7 @@ class _MenuState extends State<Menu> {
     _menu = _menuAPI.getMenu(widget.restaurant);
   }
 
-  int _count = 0;
+  double _total = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -98,42 +100,41 @@ class _MenuState extends State<Menu> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            _count > 0
+                            menuItem.count > 0
                                 ? IconButton(
                                     icon: Icon(Icons.remove),
                                     onPressed: () {
                                       setState(() {
-                                        if (_count > 0) {
-                                          _count--;
+                                        if (menuItem.count > 0) {
+                                          menuItem.count--;
+                                          _total += menuItem.price;
                                         }
                                       });
                                     },
                                   )
                                 : const SizedBox.shrink(),
-                            _count == 0
+                            menuItem.count == 0
                                 ? TextButton(
                                     onPressed: () {
                                       setState(() {
-                                        _count++;
+                                        menuItem.count++;
+                                        _total += menuItem.price;
                                       });
                                     },
                                     child: const Text(
                                       "Add",
                                       style: TextStyle(fontSize: 10),
                                     ))
-                                : const SizedBox.shrink(),
-                            _count > 0
-                                ? Text(
-                                    '$_count',
-                                    style: const TextStyle(fontSize: 14),
-                                  )
-                                : const SizedBox.shrink(),
-                            _count > 0
+                                : Text(
+                                    '$menuItem.count',
+                                    style: const TextStyle(fontSize: 10),
+                                  ),
+                            menuItem.count > 0
                                 ? IconButton(
                                     icon: Icon(Icons.add),
                                     onPressed: () {
                                       setState(() {
-                                        _count++;
+                                        menuItem.count++;
                                       });
                                     },
                                   )
