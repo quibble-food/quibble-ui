@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
-
+import 'package:quibble/views/pages/restaurant.dart';
 import '../../../models/food.dart';
-import '../../restaurant/restaurant.dart';
 
 class Food extends StatefulWidget {
   const Food({super.key});
@@ -27,6 +25,7 @@ class _FoodState extends State<Food> {
         "restaurant": "Food court",
         "image_url": "assets/images/networkimages/burger.jpg",
         "description": "description",
+        "veg": true,
         "price": 45
       },
       {
@@ -34,6 +33,7 @@ class _FoodState extends State<Food> {
         "restaurant": "Food court",
         "image_url": "assets/images/networkimages/coffee.jpg",
         "description": "description",
+        "veg": false,
         "price": 45
       },
       {
@@ -41,6 +41,15 @@ class _FoodState extends State<Food> {
         "restaurant": "Food court",
         "image_url": "assets/images/networkimages/pasta.jpg",
         "description": "description",
+        "veg": true,
+        "price": 45
+      },
+      {
+        "name": "Food court - Pasta",
+        "restaurant": "Food court",
+        "image_url": "assets/images/networkimages/pasta.jpg",
+        "description": "description",
+        "veg": false,
         "price": 45
       }
     ];
@@ -53,6 +62,7 @@ class _FoodState extends State<Food> {
     for (var item in jsonResponse) {
       foodItems.add(FoodItem(
           name: item['name'],
+          veg: item['veg'],
           restaurant: item['restaurant'],
           imageUrl: item['image_url'],
           description: item['description'],
@@ -89,7 +99,7 @@ class _FoodState extends State<Food> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (BuildContext context) {
-                    return Menu(
+                    return Restaurant(
                       restaurant: foodItem.restaurant,
                     );
                   }));

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 import '../../../services/getfooditems.dart';
@@ -29,131 +27,116 @@ class _MenuState extends State<Menu> {
   Widget build(BuildContext context) {
     ScrollController controller = ScrollController();
     final screenSize = MediaQuery.of(context).size;
-    final menuImageHeight = screenSize.height * 0.35;
-    final menuImageWidth = screenSize.width * 0.35;
-    return FutureBuilder<List<dynamic>>(
-      future: _menu,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return ListView.builder(
-            controller: controller,
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final menuItem = snapshot.data![index];
-              return ListTile(
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 6.0, horizontal: 5.0),
-                title: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: menuItem.description,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0,
-                        ),
-                      ),
-                      const TextSpan(
-                        text: '₹',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0,
-                        ),
-                      ),
-                      TextSpan(
-                        text: "${menuItem.price}",
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                leading: Stack(
+    final menuImageHeight = screenSize.height * 0.25;
+    final menuImageWidth = screenSize.width * 0.3;
+    return SingleChildScrollView(
+      child: FutureBuilder<List<dynamic>>(
+        future: _menu,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              controller: controller,
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                final menuItem = snapshot.data![index];
+                return Stack(
                   children: [
-                    Image.asset(
-                      menuItem.imageUrl,
-                      fit: BoxFit.fill,
-                      height: menuImageHeight,
-                      width: menuImageWidth,
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          // Set the color of the container
-                          borderRadius: BorderRadius.circular(2),
-                          border: Border.all(color: Colors.green, width: 1),
-                          color:
-                              Colors.white, // Set the radius of the container
+                    Container(
+                        margin: EdgeInsets.only(
+                            left: screenSize.width * 0.05,
+                            right: screenSize.width * 0.05,
+                            bottom: screenSize.height * 0.02,
+                            top: 0),
+                        height: screenSize.height * 0.30,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
                         ),
-                        height: 30,
-                        width: menuImageWidth * 0.8,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            menuItem.count > 0
-                                ? IconButton(
-                                    icon: Icon(Icons.remove),
-                                    onPressed: () {
-                                      setState(() {
-                                        if (menuItem.count > 0) {
-                                          menuItem.count--;
-                                          _total += menuItem.price;
-                                        }
-                                      });
-                                    },
-                                  )
-                                : const SizedBox.shrink(),
-                            menuItem.count == 0
-                                ? TextButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        menuItem.count++;
-                                        _total += menuItem.price;
-                                      });
-                                    },
-                                    child: const Text(
-                                      "Add",
-                                      style: TextStyle(fontSize: 10),
-                                    ))
-                                : Text(
-                                    '$menuItem.count',
-                                    style: const TextStyle(fontSize: 10),
+                            Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 10, right: 10, top: 40),
+                                  height: menuImageHeight,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            offset: const Offset(0, 0),
+                                            blurRadius: 60,
+                                            color: Colors.grey.shade400
+                                                .withOpacity(0.33))
+                                      ]),
+                                  child: Image.asset(
+                                    menuItem.imageUrl,
+                                    height: menuImageHeight,
+                                    width: menuImageWidth,
                                   ),
-                            menuItem.count > 0
-                                ? IconButton(
-                                    icon: Icon(Icons.add),
-                                    onPressed: () {
-                                      setState(() {
-                                        menuItem.count++;
-                                      });
-                                    },
-                                  )
-                                : SizedBox.shrink(),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              margin:
+                                  EdgeInsets.only(top: 60, left: 5, right: 5),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "${menuItem.name}",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 18),
+                                  ),
+                                  Text(
+                                    "₹ ${menuItem.price}",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        )),
+                    Container(
+                      margin: EdgeInsets.only(
+                        right: screenSize.width * 0.05 + 2,
+                      ),
+                      child: Align(
+                        alignment: const Alignment(1, -1),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Icon(
+                              Icons.crop_square_sharp,
+                              color: menuItem.veg ? Colors.green : Colors.red,
+                              size: 36,
+                            ),
+                            Icon(Icons.circle,
+                                color: menuItem.veg ? Colors.green : Colors.red,
+                                size: 14),
                           ],
                         ),
                       ),
-                    ),
+                    )
                   ],
-                ),
-              );
-            },
-          );
-        } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
-        }
-
-        return const CircularProgressIndicator();
-      },
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
+          return const CircularProgressIndicator();
+        },
+      ),
     );
   }
 }

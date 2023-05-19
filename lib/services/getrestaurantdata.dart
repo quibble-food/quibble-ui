@@ -14,4 +14,16 @@ class RestaurantApi {
       throw Exception('Failed to load restaurant details');
     }
   }
+
+  Future<RestaurantRating> getRestaurantRating(String restaurant) async {
+    // final response = await http.get(Uri.parse(
+    //     'https://quibble.in/RestaurantRating?restaurant=$restaurant'));
+
+    // if (response.statusCode == 200) {
+    // return RestaurantRating.fromJson(jsonDecode(response.body));
+    return RestaurantRating.fromJson({"rating": 4.2, "count": 80});
+    // } else {
+    //   throw Exception('Failed to load restaurant details');
+    // }
+  }
 }
