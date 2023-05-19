@@ -53,7 +53,6 @@ class _LoginViewState extends State<LoginView> {
                         borderRadius: BorderRadius.all(Radius.circular(50.0)),
                         borderSide: BorderSide.none,
                       ),
-
                       filled: true,
                       contentPadding: EdgeInsets.only(
                         left: 20.0,
@@ -76,7 +75,9 @@ class _LoginViewState extends State<LoginView> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PhoneValidation(phoneNumber: phoneNumber,),
+                              builder: (context) => PhoneValidation(
+                                phoneNumber: phoneNumber,
+                              ),
                             ),
                           );
                         },

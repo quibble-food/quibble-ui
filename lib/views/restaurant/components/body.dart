@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quibble/views/restaurant/components/menu.dart';
-import 'package:quibble/views/restaurant/components/restaurantdetails.dart';
+import 'menu.dart';
+import 'restaurantdetails.dart';
 
 class Body extends StatefulWidget {
   final String restaurant;
@@ -13,14 +13,20 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Column(
-      children: [
-        RestaurantDetails(
-          restaurant: widget.restaurant,
-        ),
-        Menu(restaurant: widget.restaurant)
-      ],
-    ));
+    Size screen = MediaQuery.of(context).size;
+    return Scaffold(
+      body: Column(children: [
+        Expanded(
+            flex: 0,
+            child: RestaurantDetails(
+              restaurant: widget.restaurant,
+            )),
+        Expanded(
+            flex: 1,
+            child: Menu(
+              restaurant: widget.restaurant,
+            )),
+      ]),
+    );
   }
 }

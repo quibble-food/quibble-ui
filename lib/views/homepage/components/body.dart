@@ -14,7 +14,8 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: Column(
+        child: Flex(
+      direction: Axis.vertical,
       children: const [
         Padding(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),

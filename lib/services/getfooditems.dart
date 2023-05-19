@@ -12,11 +12,31 @@ class FoodItems {
       description:
           'A classic cheeseburger with a beef patty, cheese, lettuce, and tomato.',
       price: 40,
+      veg: true,
       imageUrl: "assets/images/networkimages/burger.jpg",
     ),
     FoodItem(
       name: 'Caesar Salad',
       restaurant: "Food court",
+      description:
+          'A fresh salad with romaine lettuce, croutons, and Parmesan cheese.',
+      price: 40,
+      veg: true,
+      imageUrl: "assets/images/networkimages/burger.jpg",
+    ),
+    FoodItem(
+      name: 'Caesar Salad',
+      restaurant: "Food court",
+      description:
+          'A fresh salad with romaine lettuce, croutons, and Parmesan cheese.',
+      price: 40,
+      veg: false,
+      imageUrl: "assets/images/networkimages/burger.jpg",
+    ),
+    FoodItem(
+      name: 'Caesar Salad',
+      restaurant: "Food court",
+      veg: true,
       description:
           'A fresh salad with romaine lettuce, croutons, and Parmesan cheese.',
       price: 40,
@@ -28,22 +48,7 @@ class FoodItems {
       description:
           'A fresh salad with romaine lettuce, croutons, and Parmesan cheese.',
       price: 40,
-      imageUrl: "assets/images/networkimages/burger.jpg",
-    ),
-    FoodItem(
-      name: 'Caesar Salad',
-      restaurant: "Food court",
-      description:
-          'A fresh salad with romaine lettuce, croutons, and Parmesan cheese.',
-      price: 40,
-      imageUrl: "assets/images/networkimages/burger.jpg",
-    ),
-    FoodItem(
-      name: 'Caesar Salad',
-      restaurant: "Food court",
-      description:
-          'A fresh salad with romaine lettuce, croutons, and Parmesan cheese.',
-      price: 40,
+      veg: false,
       imageUrl: "assets/images/networkimages/burger.jpg",
     ),
     // add more menu items here
