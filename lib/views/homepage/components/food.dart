@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quibble/views/pages/restaurant.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:quibble/views/restaurant/restaurant.dart';
 import '../../../models/food.dart';
 
 class Food extends StatefulWidget {
@@ -65,6 +66,7 @@ class _FoodState extends State<Food> {
           veg: item['veg'],
           restaurant: item['restaurant'],
           imageUrl: item['image_url'],
+          isCustomizable: true,
           description: item['description'],
           price: item['price']));
     }
@@ -89,7 +91,7 @@ class _FoodState extends State<Food> {
               height: screenSize.height * 0.22,
               margin: const EdgeInsets.symmetric(vertical: 14, horizontal: 25),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(14),
                 image: DecorationImage(
                   image: AssetImage(foodItem.imageUrl),
                   fit: BoxFit.cover,
@@ -109,33 +111,35 @@ class _FoodState extends State<Food> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        foodItem.name,
-                        style: const TextStyle(
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
+                      Text(foodItem.name,
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          )),
                       const SizedBox(height: 8.0),
                       RichText(
                         text: TextSpan(
                           children: [
-                            const TextSpan(
+                            TextSpan(
                               text: '₹',
-                              style: TextStyle(
+                              style: GoogleFonts.poppins(
+                                  textStyle: const TextStyle(
                                 color: Color.fromARGB(255, 3, 244, 11),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.0,
-                              ),
+                              )),
                             ),
                             TextSpan(
                               text: "${foodItem.price}",
-                              style: const TextStyle(
+                              style: GoogleFonts.poppins(
+                                  textStyle: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.0,
-                              ),
+                              )),
                             ),
                           ],
                         ),

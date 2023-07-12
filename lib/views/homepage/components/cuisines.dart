@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class Description extends StatefulWidget {
@@ -64,7 +63,6 @@ class _CuisineState extends State<Cuisine> {
   List foodItems = [
     {"name": "Noodles", "image_url": "rolls.png"},
     {"name": "Ice Cream", "image_url": "icecream.png"},
-    {"name": "Burger", "image_url": "burger.png"},
     {"name": "Rolls", "image_url": "rolls.png"},
     {"name": "Biryani", "image_url": "biryani.png"},
     {"name": "Rolls", "image_url": "rolls.png"},

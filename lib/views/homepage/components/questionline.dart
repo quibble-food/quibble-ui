@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class QuestionLine extends StatelessWidget {
   const QuestionLine({super.key});
@@ -7,17 +8,18 @@ class QuestionLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        const Text("What are you in mood for?",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold)),
+        Text("What are you in mood for?",
+            style: GoogleFonts.poppins(
+                textStyle: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500))),
         const Spacer(),
         TextButton(
-          style: const ButtonStyle(
+          style: ButtonStyle(
               alignment: Alignment.center,
               backgroundColor:
-                  MaterialStatePropertyAll(Color.fromARGB(255, 4, 133, 238))),
+                  MaterialStatePropertyAll(Colors.purple.shade400)),
           child: const Text("See all", style: TextStyle(color: Colors.white)),
           onPressed: () {
             // Offer function call
