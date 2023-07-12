@@ -1,26 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:quibble/views/restaurant/components/menu.dart';
-import 'package:quibble/views/restaurant/components/restaurantdetails.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:quibble/providers/cartitemsprovider.dart';
+import 'package:quibble/views/restaurant/components/viewcartbar.dart';
+import '../../../common.dart';
+import '../../../models/food.dart';
+import 'menu.dart';
+import 'restaurantdetails.dart';
 
-class Body extends StatefulWidget {
+class RestaurantMenuItemsBody extends StatefulWidget {
   final String restaurant;
-  const Body({super.key, required this.restaurant});
+  final List<FoodItem> menuItemsFromSearch;
+  RestaurantMenuItemsBody({
+    super.key,
+    this.menuItemsFromSearch = const [],
+    required this.restaurant,
+  });
 
   @override
-  State<Body> createState() => _BodyState();
+  State<RestaurantMenuItemsBody> createState() =>
+      _RestaurantMenuItemsBodyState();
 }
 
-class _BodyState extends State<Body> {
+class _RestaurantMenuItemsBodyState extends State<RestaurantMenuItemsBody> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Column(
-      children: [
-        RestaurantDetails(
-          restaurant: widget.restaurant,
-        ),
-        Menu(restaurant: widget.restaurant)
-      ],
-    ));
+    return Menu(
+      restaurant: widget.restaurant,
+      menuItemsFromSearch: widget.menuItemsFromSearch,
+    );
   }
 }

@@ -1,6 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/restaurant.dart';
+
+import '../../../constants.dart';
 import '../../../services/getrestaurantdata.dart';
 
 class RestaurantDetails extends StatefulWidget {
@@ -12,93 +14,92 @@ class RestaurantDetails extends StatefulWidget {
 }
 
 class _RestaurantDetailsState extends State<RestaurantDetails> {
-  late Future<dynamic> _details;
-  final _restaurantAPI = RestaurantApi();
+  late Future<RestaurantRating> rating;
+  late TextEditingController textController;
+  final _ratingAPI = RestaurantApi();
 
   @override
   void initState() {
     super.initState();
-    // _details = _restaurantAPI.getRestaurantDetails(widget.restaurant);
+    textController = TextEditingController(text: '');
+    rating = _ratingAPI.getRestaurantRating(widget.restaurant);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    textController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // ScrollController controller = ScrollController();
-    final screenSize = MediaQuery.of(context).size;
+    Size screen = MediaQuery.of(context).size;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          height: screen.height * 0.1,
+          child: Stack(
+            children: [
+              Container(
+                height: screen.height * 0.2 - 27,
+                decoration: BoxDecoration(
+                    color: primaryColor,
+                    boxShadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 0),
+                          blurRadius: 50,
+                          color: Colors.grey.shade400)
+                    ],
+                    borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(36),
+                        bottomRight: Radius.circular(36))),
+              ),
+              Positioned(
+                child: Column(
+                  children: [
+                    FutureBuilder<RestaurantRating>(
+                      future: rating,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Padding(
+                              padding: EdgeInsets.only(
+                                  left: screen.width * 0.05,
+                                  right: screen.width * 0.05),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.star_border_outlined,
+                                      size: 40,
+                                      color: Color.fromARGB(255, 9, 224, 16)),
+                                  snapshot.data!.count < 100
+                                      ? Text(
+                                          '${snapshot.data!.rating} ratings',
+                                          style: const TextStyle(
+                                              fontSize: 28,
+                                              color: Colors.white),
+                                        )
+                                      : Text(
+                                          '${(snapshot.data!.rating / 100) * 100}+ ratings',
+                                          style: const TextStyle(
+                                              fontSize: 28,
+                                              color: Colors.white)),
+                                ],
+                              ));
+                        } else if (snapshot.hasError) {
+                          return Text('${snapshot.error}');
+                        }
 
-    return Container(
-      width: screenSize.width * 0.92,
-      height: screenSize.height * 0.22,
-      margin: const EdgeInsets.only(left: 1, right: 1, top: 2, bottom: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(screenSize.width * 0.05),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 3,
-            offset: const Offset(0, 1),
+                        // By default, show a loading spinner.
+                        return const CircularProgressIndicator();
+                      },
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
-        ],
-      ),
-      padding: const EdgeInsets.all(16.0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          children: [
-            Text(
-              widget.restaurant,
-              textAlign: TextAlign.left,
-              textDirection: TextDirection.ltr,
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
-                decorationStyle: TextDecorationStyle.solid,
-                decorationColor: Colors.grey.withOpacity(0.5),
-                decorationThickness: 1.0,
-              ),
-            ),
-            const Spacer(),
-            IconButton(
-              icon: const Icon(CupertinoIcons.share),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.favorite_border,
-                color: Colors.black,
-              ),
-              onPressed: () {},
-            )
-          ],
-        ),
-        const SizedBox(height: 5.0),
-        Row(
-          children: [Icon(Icons.star), Text("3.5 (158 ratings)")],
-        ),
-        const SizedBox(height: 16.0),
-        Text(
-          'blah blah blah blah blah',
-          textAlign: TextAlign.left,
-          textDirection: TextDirection.ltr,
-          style: TextStyle(
-            fontSize: 16.0,
-            decoration: TextDecoration.underline,
-            decorationStyle: TextDecorationStyle.solid,
-            decorationColor: Colors.grey.withOpacity(0.5),
-            decorationThickness: 1.0,
-          ),
-        ),
-        const SizedBox(height: 16.0),
-        const Text(
-          'X% Off!',
-          textAlign: TextAlign.left,
-          textDirection: TextDirection.ltr,
-          style: TextStyle(
-            fontSize: 16.0,
-          ),
-        ),
-      ]),
+        )
+      ],
     );
   }
 }
