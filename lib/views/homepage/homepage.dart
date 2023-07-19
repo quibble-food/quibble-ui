@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../homepage/components/body.dart';
-import '../homepage/components/buttomnavbar.dart';
+import 'components/body.dart';
+import 'components/buttomnavbar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'TitleFont',
                 fontSize: 25,
-                color: Color.fromARGB(255, 254, 254, 254),
+                color: Colors.deepOrange,
               ),
             ),
             const Spacer(),
@@ -25,18 +25,18 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'roboto',
                 fontSize: 18,
-                color: Color.fromARGB(255, 254, 254, 254),
+                color: Colors.deepOrange,
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.location_on, color: Colors.white),
+              icon: Icon(Icons.location_on, color: Colors.purple.shade600),
               onPressed: () {
                 // Your code here
               },
             ),
           ],
         ),
-        backgroundColor: Colors.deepOrange,
+        backgroundColor: Colors.white,
       ),
       body: const Body(),
       bottomNavigationBar: const NavBar(),

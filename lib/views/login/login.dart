@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:quibble/views/pages/phonevalidation.dart';
+import 'package:quibble/views/login/phonevalidation.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});

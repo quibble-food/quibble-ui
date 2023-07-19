@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../models/restaurant.dart';
 
@@ -28,13 +26,19 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    textController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          height: screen.height * 0.2,
+          height: screen.height * 0.1,
           child: Stack(
             children: [
               Container(
@@ -88,22 +92,6 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                         // By default, show a loading spinner.
                         return const CircularProgressIndicator();
                       },
-                    ),
-                    Container(
-                      height: screen.height * 0.06,
-                      margin: EdgeInsets.fromLTRB(screen.width * 0.05,
-                          screen.height * 0.02, screen.width * 0.05, 0),
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(36))),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: CupertinoSearchTextField(
-                          backgroundColor: Colors.white,
-                          controller: textController,
-                          placeholder: 'Search for something tasty',
-                        ),
-                      ),
                     ),
                   ],
                 ),

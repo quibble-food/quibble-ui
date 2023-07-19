@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PhoneValidation extends StatelessWidget {
   final String phoneNumber;
@@ -16,7 +17,13 @@ class PhoneValidation extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('OTP'),
+        backgroundColor: Colors.deepOrange,
+        title: Text(
+          'OTP',
+          style: GoogleFonts.poppins(
+              textStyle: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.w500)),
+        ),
       ),
       body: Column(
         children: [
@@ -50,13 +57,19 @@ class PhoneValidation extends StatelessWidget {
                       height: 68,
                       width: 64,
                       child: TextFormField(
+                        style: TextStyle(
+                          color: Colors.purple.shade400,
+                          decorationColor: Colors.purple.shade400,
+                        ),
                         onChanged: (value) {
                           if (value.length == 1) {
                             FocusScope.of(context).nextFocus();
                           }
                         },
                         onSaved: (pin1) {},
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
+                          focusColor: Colors.purple.shade400,
+                          fillColor: Colors.purple.shade400,
                           hintText: "0",
                         ),
                         keyboardType: TextInputType.number,
@@ -77,7 +90,8 @@ class PhoneValidation extends StatelessWidget {
                           }
                         },
                         onSaved: (pin2) {},
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
+                          focusColor: Colors.purple.shade400,
                           hintText: "0",
                         ),
                         keyboardType: TextInputType.number,
@@ -92,13 +106,15 @@ class PhoneValidation extends StatelessWidget {
                       height: 68,
                       width: 64,
                       child: TextFormField(
+                        style: TextStyle(color: Colors.purple.shade400),
                         onChanged: (value) {
                           if (value.length == 1) {
                             FocusScope.of(context).nextFocus();
                           }
                         },
                         onSaved: (pin3) {},
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
+                          focusColor: Colors.purple.shade400,
                           hintText: "0",
                         ),
                         keyboardType: TextInputType.number,
@@ -119,7 +135,8 @@ class PhoneValidation extends StatelessWidget {
                           }
                         },
                         onSaved: (pin4) {},
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
+                          focusColor: Colors.purple.shade400,
                           hintText: "0",
                         ),
                         keyboardType: TextInputType.number,
@@ -143,7 +160,7 @@ class PhoneValidation extends StatelessWidget {
             width: 200.0,
             child: Material(
               borderRadius: BorderRadius.circular(25.0),
-              color: Colors.orange,
+              color: Colors.orange.shade700,
               shadowColor: Colors.orangeAccent,
               elevation: 7.0,
               child: GestureDetector(
