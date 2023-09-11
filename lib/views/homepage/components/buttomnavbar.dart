@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class NavBar extends StatefulWidget {
-  const NavBar({super.key});
+  final ValueSetter changePage;
+  const NavBar({super.key, required this.changePage});
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -12,27 +13,28 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: _currentTab,
-      onTap: (int index) {
-        setState(() {
+    void onPageChange(index) {
+      setState(() {
           _currentTab = index;
         });
-      },
+        widget.changePage(index);
+    }
+    return BottomNavigationBar(
+      currentIndex: _currentTab,
+      onTap: onPageChange,
       items: [
         BottomNavigationBarItem(
-            icon: InkWell(
-              onTap: () => {},
-              child: Image.asset(
-                'assets/images/socialmedia.png',
-                width: 24,
-                height: 24,
-              ),
+          icon: InkWell(
+            child: Image.asset(
+              'assets/images/socialmedia.png',
+              width: 24,
+              height: 24,
             ),
-            label: "Feeds"),
+          ),
+          label: "Feeds",
+        ),
         BottomNavigationBarItem(
             icon: InkWell(
-              onTap: () => {},
               child: Image.asset(
                 'assets/images/nav-food.png',
                 width: 24,
@@ -41,15 +43,15 @@ class _NavBarState extends State<NavBar> {
             ),
             label: "Restaurants"),
         BottomNavigationBarItem(
-            icon: InkWell(
-              onTap: () => {},
-              child: Image.asset(
-                'assets/images/account.png',
-                width: 24,
-                height: 24,
-              ),
+          icon: InkWell(
+            child: Image.asset(
+              'assets/images/account.png',
+              width: 24,
+              height: 24,
             ),
-            label: "Account")
+          ),
+          label: "Cart",
+        )
       ],
     );
   }

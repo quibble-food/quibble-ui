@@ -23,25 +23,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => CartItemsProvider()),
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: true,
-          title: 'Quibble',
-          routes: {
-            '/home': (BuildContext context) => const HomeScreen(),
-          },
-          theme: ThemeData(
-            fontFamily: textFontFamily,
-            scaffoldBackgroundColor: Colors.white,
-            primarySwatch: Colors.deepOrange,
-            textTheme: Theme.of(context).textTheme.apply(
-                  bodyColor: const Color(0xFFf07c63),
-                ),
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
-          home: const LoginView(),
-        ));
+      providers: [
+        ChangeNotifierProvider(create: (_) => CartItemsProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: true,
+        title: 'Quibble',
+        routes: {
+          '/home': (BuildContext context) => const HomeScreen(),
+        },
+        theme: ThemeData(
+          fontFamily: textFontFamily,
+          scaffoldBackgroundColor: Colors.white,
+          primarySwatch: Colors.deepOrange,
+          textTheme: Theme.of(context).textTheme.apply(
+                bodyColor: const Color(0xFFf07c63),
+              ),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: const LoginView(),
+      ),
+    );
   }
 }

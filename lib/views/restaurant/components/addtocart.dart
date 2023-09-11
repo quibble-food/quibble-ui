@@ -1,19 +1,18 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:quibble/constants.dart';
 import 'package:quibble/providers/cartitemsprovider.dart';
 
 import '../../../models/food.dart';
 
 class AddToCartButton extends StatefulWidget {
-  FoodItem item;
-  int index;
-  AddToCartButton({
+  final FoodItem item;
+  final double menuImageWidth;
+  const AddToCartButton({
     super.key,
-    required this.index,
     required this.item,
+    required this.menuImageWidth,
   });
 
   @override
@@ -21,106 +20,162 @@ class AddToCartButton extends StatefulWidget {
 }
 
 class _AddToCartButtonState extends State<AddToCartButton> {
-  bool addButtonClicked = false;
   @override
   Widget build(BuildContext context) {
+    bool addButtonClicked = false || widget.item.count != 0;
     final cart = Provider.of<CartItemsProvider>(context, listen: false);
     Size screen = MediaQuery.of(context).size;
+    void buttonClick() {
+      setState(
+        () {
+          widget.item.count++;
+          cart.addToCart(widget.item);
+          if (widget.item.count == 0) {
+            addButtonClicked = false;
+          }
+        },
+      );
+    }
+
     return Container(
-      width: screen.width * 0.3,
-      height: screen.height * 0.05,
-      margin: const EdgeInsets.symmetric(vertical: 20),
+      width: widget.menuImageWidth - 18,
+      margin: const EdgeInsets.symmetric(horizontal: 9),
       child: addButtonClicked
           ? Expanded(
               flex: 0,
               child: Container(
-                  width: screen.width * 0.3,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(2),
+                width: widget.menuImageWidth - 20,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                    color: Colors.grey.shade400,
                   ),
-                  child: Row(children: [
-                    Container(
-                      width: screen.width * 0.09,
-                      height: screen.height * 0.45,
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: (widget.menuImageWidth - 20) * 0.3,
                       child: InkWell(
-                          onTap: () {
-                            setState(() {
+                        onTap: () {
+                          setState(
+                            () {
                               widget.item.count--;
                               cart.removeFromCart(widget.item);
 
                               if (widget.item.count == 0) {
                                 addButtonClicked = false;
                               }
-                            });
-                          },
-                          child: Icon(
-                            Icons.remove,
-                            color: Colors.purple.shade600,
-                            size: 16,
-                          )),
+                            },
+                          );
+                        },
+                        child: const Icon(
+                          Icons.remove,
+                          color: primaryColor,
+                          size: 16,
+                        ),
+                      ),
                     ),
                     Container(
-                      width: screen.width * 0.09,
+                      width: (widget.menuImageWidth - 20) * 0.4,
                       alignment: Alignment.center,
-                      height: screen.height * 0.45,
-                      margin: const EdgeInsets.symmetric(horizontal: 3),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 3, vertical: 2),
+                        horizontal: 3,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(3),
-                          color: Colors.purple.shade600),
+                        borderRadius: BorderRadius.circular(3),
+                        color: primaryColor,
+                      ),
                       child: Text(
                         '${widget.item.count}',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    Container(
-                      width: screen.width * 0.09,
-                      height: screen.height * 0.45,
+                    SizedBox(
+                      width: (widget.menuImageWidth - 20) * 0.3,
                       child: InkWell(
-                          onTap: () {
-                            setState(() {
+                        onTap: () {
+                          setState(
+                            () {
                               widget.item.count++;
                               cart.addToCart(widget.item);
                               if (widget.item.count == 0) {
                                 addButtonClicked = false;
                               }
-                            });
-                          },
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.purple.shade600,
-                            size: 16,
-                          )),
+                            },
+                          );
+                        },
+                        child: const Icon(
+                          Icons.add,
+                          color: primaryColor,
+                          size: 16,
+                        ),
+                      ),
                     ),
-                  ])),
+                  ],
+                ),
+              ),
             )
           : Container(
-              width: screen.width * 0.25,
-              height: screen.height * 0.035,
               alignment: Alignment.center,
               color: Colors.deepOrange,
-              child: InkWell(
-                  onTap: () {
-                    setState(() {
-                      addButtonClicked = true;
-                      widget.item.count++;
-                      cart.addToCart(widget.item);
-                    });
-                  },
-                  child: Text(
-                    widget.item.isCustomizable ? 'Customise' : "Add",
-                    style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w600)),
-                  )),
+              child: widget.item.isCustomizable
+                  ? CustomisableButton(buttonClick: buttonClick)
+                  : AddButton(buttonClick: buttonClick),
             ),
+    );
+  }
+}
+
+class AddButton extends StatelessWidget {
+  final Function buttonClick;
+  const AddButton({super.key, required this.buttonClick});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        buttonClick();
+      },
+      child: Text(
+        "Add",
+        style: GoogleFonts.poppins(
+          textStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomisableButton extends StatelessWidget {
+  final Function buttonClick;
+  const CustomisableButton({super.key, required this.buttonClick});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        buttonClick();
+      },
+      child: Text(
+        "Customise",
+        style: GoogleFonts.poppins(
+          textStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
     );
   }
 }
