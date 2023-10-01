@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quibble/constants.dart';
 
 import '../../../models/food.dart';
 

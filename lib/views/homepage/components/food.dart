@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:quibble/views/restaurant/restaurant.dart';
+import 'package:quibble/views/components/cards/restaurantcard.dart';
 import '../../../models/food.dart';
 
 class Food extends StatefulWidget {
@@ -80,74 +79,26 @@ class _FoodState extends State<Food> {
     ScrollController controller = ScrollController();
     final screenSize = MediaQuery.of(context).size;
     return ListView.builder(
-        controller: controller,
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: _foodItems.length,
-        itemBuilder: (BuildContext context, int index) {
-          final foodItem = _foodItems[index];
-          return Container(
-              width: screenSize.width * 0.82,
-              height: screenSize.height * 0.22,
-              margin: const EdgeInsets.symmetric(vertical: 14, horizontal: 25),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                image: DecorationImage(
-                  image: AssetImage(foodItem.imageUrl),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (BuildContext context) {
-                    return Restaurant(
-                      restaurant: foodItem.restaurant,
-                    );
-                  }));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(foodItem.name,
-                          style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          )),
-                      const SizedBox(height: 8.0),
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '₹',
-                              style: GoogleFonts.poppins(
-                                  textStyle: const TextStyle(
-                                color: Color.fromARGB(255, 3, 244, 11),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0,
-                              )),
-                            ),
-                            TextSpan(
-                              text: "${foodItem.price}",
-                              style: GoogleFonts.poppins(
-                                  textStyle: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0,
-                              )),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ));
-        });
+      controller: controller,
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: _foodItems.length,
+      itemBuilder: (BuildContext context, int index) {
+        final foodItem = _foodItems[index];
+        return Container(
+          width: screenSize.width * 0.82,
+          height: screenSize.height * 0.22,
+          margin: const EdgeInsets.symmetric(vertical: 14, horizontal: 25),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            image: DecorationImage(
+              image: AssetImage(foodItem.imageUrl),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: RestaurantCard(foodItem: foodItem),
+        );
+      },
+    );
   }
 }

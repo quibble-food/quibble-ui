@@ -10,12 +10,13 @@ class FoodItem {
   final bool veg;
   int count = 0;
 
-  FoodItem(
-      {required this.name,
-      required this.restaurant,
-      required this.imageUrl,
-      required this.description,
-      required this.isCustomizable,
-      required this.price,
-      required this.veg});
+  FoodItem({
+    required this.name,
+    required this.restaurant,
+    required this.imageUrl,
+    required this.description,
+    required this.isCustomizable,
+    required this.price,
+    required this.veg,
+  });
 }
